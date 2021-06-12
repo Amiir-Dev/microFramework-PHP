@@ -1,3 +1,7 @@
 <?php
 
-echo $_SERVER['REQUEST_URI'];
+# front controller for
+
+include "vendor/autoload.php";
+
+new App\Core\Request;
