@@ -2,6 +2,6 @@
 
 # front controller for
 
-include "vendor/autoload.php";
+include "bootstrap/init.php";
 
-new App\Core\Request;
+echo $_ENV["BASE_URL"];
