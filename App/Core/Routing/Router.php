@@ -25,6 +25,9 @@ class Router
 
     private function run_route_middleware()
     {
+        if (is_null($this->current_route))
+            return;
+            
         $middleware = $this->current_route['middleware'];
         foreach ($middleware as $middleware_class) {
             $middleware_obj = new $middleware_class;
@@ -40,12 +43,11 @@ class Router
     public function findRoute(Request $request)
     {
         foreach ($this->routes as $route) {
-            if (!in_array($request->method(), $route['methods']) && $request->uri()) {
-                return false;
-            }
-            if ($this->regex_matched($route)) {
+            if (!in_array($request->method(), $route['methods']) && $request->uri())
+                continue;
+
+            if ($this->regex_matched($route))
                 return $route;
-            }
         }
         return null;
     }
