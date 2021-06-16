@@ -67,17 +67,21 @@ class MysqlBaseModel extends BaseModel
             $this->attributes[$col] = $val;
         return $this;
     }
-
-    public function get(array $columns, array $where): array
-    {
-        return $this->connection->select($this->table, $columns, $where);
-    }
-
     public function getAll(): array
     {
-        return $this->connection->select($this->table, '*');
+        return $this->get('*',[]);
     }
 
+
+    public function get($columns, array $where): array
+    {
+
+//         $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1 ;
+//         $start = ($page-1) * $this->pageSize;
+//         $where['LIMIT'] = [$start,$this->pageSize];
+
+        return $this->connection->select($this->table, $columns, $where);
+    }
 
     # Update (UPDATE)
     public function update(array $data, array $where): int
