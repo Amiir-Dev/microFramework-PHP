@@ -1,12 +1,12 @@
 <?php
 
 
-function site_url($route)
+function site_url($route = '')
 {
     return $_ENV['HOST'] . $route;
 }
 
-function assets_url($route)
+function assets_url($route = '')
 {
     return site_url("assets/" . $route);
 }
@@ -18,7 +18,16 @@ function view($path, $data = [])
     $viewFullPath = BASE_PATH . "views/$path.php";
     include_once $viewFullPath;
 }
+function view_die($path, $data = [])
+{
+    view($path, $data);
+    die();
+}
 
+function xss_clean($str)
+{
+    return filter_var(htmlspecialchars($str), FILTER_SANITIZE_STRING);
+}
 
 function strContains($str, $needle, $case_sensitive = 0)
 {
